@@ -40,14 +40,13 @@
             this.button1 = new System.Windows.Forms.Button();
             this.MenuPanel = new System.Windows.Forms.Panel();
             this.bunifuSeparator1 = new Bunifu.Framework.UI.BunifuSeparator();
-            this.button5 = new System.Windows.Forms.Button();
             this.MenuBarPanel.SuspendLayout();
             this.MainPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // MenuBarPanel
             // 
-            this.MenuBarPanel.BackColor = System.Drawing.Color.Azure;
+            this.MenuBarPanel.BackColor = System.Drawing.Color.Transparent;
             this.MenuBarPanel.Controls.Add(this.MinimizeButton);
             this.MenuBarPanel.Controls.Add(this.CloseButton);
             this.MenuBarPanel.Controls.Add(this.MenuButton);
@@ -61,7 +60,7 @@
             // 
             // MinimizeButton
             // 
-            this.MinimizeButton.BackColor = System.Drawing.Color.White;
+            this.MinimizeButton.BackColor = System.Drawing.Color.Transparent;
             this.MinimizeButton.FlatAppearance.BorderSize = 0;
             this.MinimizeButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
             this.MinimizeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
@@ -77,7 +76,7 @@
             // 
             // CloseButton
             // 
-            this.CloseButton.BackColor = System.Drawing.Color.White;
+            this.CloseButton.BackColor = System.Drawing.Color.Transparent;
             this.CloseButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.CloseButton.FlatAppearance.BorderSize = 0;
             this.CloseButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
@@ -94,7 +93,7 @@
             // 
             // MenuButton
             // 
-            this.MenuButton.BackColor = System.Drawing.Color.White;
+            this.MenuButton.BackColor = System.Drawing.Color.Transparent;
             this.MenuButton.FlatAppearance.BorderSize = 0;
             this.MenuButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
             this.MenuButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
@@ -111,7 +110,6 @@
             // MainPanel
             // 
             this.MainPanel.BackColor = System.Drawing.Color.Transparent;
-            this.MainPanel.Controls.Add(this.button5);
             this.MainPanel.Controls.Add(this.button4);
             this.MainPanel.Controls.Add(this.button3);
             this.MainPanel.Controls.Add(this.button2);
@@ -210,22 +208,6 @@
             this.bunifuSeparator1.Transparency = 255;
             this.bunifuSeparator1.Vertical = false;
             // 
-            // button5
-            // 
-            this.button5.BackColor = System.Drawing.Color.White;
-            this.button5.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
-            this.button5.FlatAppearance.BorderSize = 0;
-            this.button5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGray;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.ForeColor = System.Drawing.Color.Black;
-            this.button5.Location = new System.Drawing.Point(490, 332);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(120, 65);
-            this.button5.TabIndex = 4;
-            this.button5.Text = "3";
-            this.button5.UseVisualStyleBackColor = false;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -261,7 +243,6 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button5;
     }
 }
 
