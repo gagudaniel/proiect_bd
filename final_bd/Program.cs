@@ -18,7 +18,7 @@ namespace final_bd
                 SetProcessDPIAware();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new AppForm());
         }
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern bool SetProcessDPIAware();
