@@ -64,6 +64,96 @@ namespace final_bd
             }
         }
 
+        private void FirstNameTextBox_Click(object sender, EventArgs e)
+        {
+            TextBox current_textbox = (TextBox)sender;
+            if (current_textbox.Text == "First name") current_textbox.Text = "";
+        }
+
+        private void FirstNameTextBox_Validated(object sender, EventArgs e)
+        {
+            TextBox current_textbox = (TextBox)sender;
+            if (current_textbox.Text == "") current_textbox.Text = "First name";
+        }
+
+        private void LastNameTextBox_Click(object sender, EventArgs e)
+        {
+            TextBox current_textbox = (TextBox)sender;
+            if (current_textbox.Text == "Last name") current_textbox.Text = "";
+        }
+
+        private void LastNameTextBox_Validated(object sender, EventArgs e)
+        {
+            TextBox current_textbox = (TextBox)sender;
+            if (current_textbox.Text == "") current_textbox.Text = "Last name";
+        }
+
+        private void EmailTextBox_Click(object sender, EventArgs e)
+        {
+            TextBox current_textbox = (TextBox)sender;
+            if (current_textbox.Text == "Email") current_textbox.Text = "";
+        }
+
+        private void EmailTextBox_Validated(object sender, EventArgs e)
+        {
+            TextBox current_textbox = (TextBox)sender;
+            if (current_textbox.Text == "") current_textbox.Text = "Email";
+        }
+
+        private void PINTextBox_Click(object sender, EventArgs e)
+        {
+            TextBox current_textbox = (TextBox)sender;
+            if (current_textbox.Text == "PIN") current_textbox.Text = "";
+        }
+
+        private void PINTextBox_Validated(object sender, EventArgs e)
+        {
+            TextBox current_textbox = (TextBox)sender;
+            if (current_textbox.Text == "") current_textbox.Text = "PIN";
+        }
+
+        private void PasswordTextBox_Click(object sender, EventArgs e)
+        {
+            TextBox current_textbox = (TextBox)sender;
+            if (current_textbox.Text == "Password") current_textbox.Text = "";
+        }
+
+        private void PasswordTextBox_Validated(object sender, EventArgs e)
+        {
+            TextBox current_textbox = (TextBox)sender;
+            if (current_textbox.Text == "") current_textbox.Text = "Password";
+        }
+
+        private void ConfirmPasswordTextBox_Click(object sender, EventArgs e)
+        {
+            TextBox current_textbox = (TextBox)sender;
+            if (current_textbox.Text == "Confirm password") current_textbox.Text = "";
+        }
+
+        private void ConfirmPasswordTextBox_Validated(object sender, EventArgs e)
+        {
+            TextBox current_textbox = (TextBox)sender;
+            if (current_textbox.Text == "") current_textbox.Text = "Confirm password";
+        }
+
+        private void LoginButton_Click(object sender, EventArgs e)
+        {
+            AppForm app_main_form = new AppForm();
+            Hide();
+            app_main_form.ShowDialog();
+            Close();
+        }
+
+        private void RegisterButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void EmailLoginTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void BarPanel_MouseUp(object sender, MouseEventArgs e)
         {
             mouseDown = false;

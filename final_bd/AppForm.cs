@@ -152,7 +152,7 @@ public partial class AppForm : Form
 
             string currentDescription = ((OrderItem)e.ListItem).Description;
             string currentState = ((OrderItem)e.ListItem).ItemState;
-            string currentDescriptionPadded = currentDescription.PadRight(30,' ');
+            string currentDescriptionPadded = currentDescription.PadRight(35,' ');
             e.Value = currentDescriptionPadded + currentState;
         }
 
@@ -184,9 +184,10 @@ public partial class AppForm : Form
             
         }
 
-        
+        private void MenuBarPanel_Paint(object sender, PaintEventArgs e)
+        {
 
-        
+        }
 
         void MasaButton_Click(object sender, EventArgs e)
         {

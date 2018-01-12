@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AppForm));
             this.MenuBarPanel = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.MinimizeButton = new System.Windows.Forms.Button();
             this.CloseButton = new System.Windows.Forms.Button();
             this.MenuButton = new System.Windows.Forms.Button();
@@ -48,18 +49,24 @@
             this.Masa3Button = new System.Windows.Forms.Button();
             this.Masa1Button = new System.Windows.Forms.Button();
             this.MenuPanel = new System.Windows.Forms.Panel();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.OrdersPanel = new System.Windows.Forms.Panel();
+            this.BillingButton = new System.Windows.Forms.Button();
+            this.NewOrderButton = new System.Windows.Forms.Button();
             this.OrderItemsListBox = new System.Windows.Forms.ListBox();
             this.OrdersListBox = new System.Windows.Forms.ListBox();
             this.MenuBarPanel.SuspendLayout();
             this.MainPanel.SuspendLayout();
+            this.MenuPanel.SuspendLayout();
             this.OrdersPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // MenuBarPanel
             // 
             this.MenuBarPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.MenuBarPanel.Controls.Add(this.button1);
             this.MenuBarPanel.Controls.Add(this.MinimizeButton);
             this.MenuBarPanel.Controls.Add(this.CloseButton);
             this.MenuBarPanel.Controls.Add(this.MenuButton);
@@ -67,9 +74,27 @@
             this.MenuBarPanel.Name = "MenuBarPanel";
             this.MenuBarPanel.Size = new System.Drawing.Size(1300, 70);
             this.MenuBarPanel.TabIndex = 0;
+            this.MenuBarPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.MenuBarPanel_Paint);
             this.MenuBarPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MenuBarPanel_MouseDown);
             this.MenuBarPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MenuBarPanel_MouseMove);
             this.MenuBarPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MenuBarPanel_MouseUp);
+            // 
+            // button1
+            // 
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(900, 0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(332, 70);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "Gagu Daniel";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // MinimizeButton
             // 
@@ -384,10 +409,46 @@
             // MenuPanel
             // 
             this.MenuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.MenuPanel.Controls.Add(this.button3);
+            this.MenuPanel.Controls.Add(this.button2);
             this.MenuPanel.Location = new System.Drawing.Point(0, 71);
             this.MenuPanel.Name = "MenuPanel";
             this.MenuPanel.Size = new System.Drawing.Size(450, 729);
             this.MenuPanel.TabIndex = 0;
+            // 
+            // button3
+            // 
+            this.button3.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.ForeColor = System.Drawing.Color.White;
+            this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
+            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button3.Location = new System.Drawing.Point(12, 223);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(423, 80);
+            this.button3.TabIndex = 1;
+            this.button3.Text = "Sales by category";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.ForeColor = System.Drawing.Color.White;
+            this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
+            this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button2.Location = new System.Drawing.Point(12, 120);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(423, 80);
+            this.button2.TabIndex = 0;
+            this.button2.Text = "Orders history";
+            this.button2.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
@@ -400,6 +461,8 @@
             // OrdersPanel
             // 
             this.OrdersPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.OrdersPanel.Controls.Add(this.BillingButton);
+            this.OrdersPanel.Controls.Add(this.NewOrderButton);
             this.OrdersPanel.Controls.Add(this.OrderItemsListBox);
             this.OrdersPanel.Controls.Add(this.OrdersListBox);
             this.OrdersPanel.Location = new System.Drawing.Point(850, 71);
@@ -408,6 +471,40 @@
             this.OrdersPanel.TabIndex = 1;
             this.OrdersPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.OrderPanel_Paint);
             // 
+            // BillingButton
+            // 
+            this.BillingButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.BillingButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.BillingButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.BillingButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BillingButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BillingButton.ForeColor = System.Drawing.Color.White;
+            this.BillingButton.Image = ((System.Drawing.Image)(resources.GetObject("BillingButton.Image")));
+            this.BillingButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BillingButton.Location = new System.Drawing.Point(225, 6);
+            this.BillingButton.Name = "BillingButton";
+            this.BillingButton.Size = new System.Drawing.Size(210, 45);
+            this.BillingButton.TabIndex = 3;
+            this.BillingButton.Text = "Billing";
+            this.BillingButton.UseVisualStyleBackColor = true;
+            // 
+            // NewOrderButton
+            // 
+            this.NewOrderButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.NewOrderButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.NewOrderButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.NewOrderButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.NewOrderButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NewOrderButton.ForeColor = System.Drawing.Color.White;
+            this.NewOrderButton.Image = ((System.Drawing.Image)(resources.GetObject("NewOrderButton.Image")));
+            this.NewOrderButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.NewOrderButton.Location = new System.Drawing.Point(15, 6);
+            this.NewOrderButton.Name = "NewOrderButton";
+            this.NewOrderButton.Size = new System.Drawing.Size(210, 45);
+            this.NewOrderButton.TabIndex = 2;
+            this.NewOrderButton.Text = "New order";
+            this.NewOrderButton.UseVisualStyleBackColor = true;
+            // 
             // OrderItemsListBox
             // 
             this.OrderItemsListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -415,7 +512,7 @@
             this.OrderItemsListBox.ForeColor = System.Drawing.Color.White;
             this.OrderItemsListBox.FormattingEnabled = true;
             this.OrderItemsListBox.ItemHeight = 20;
-            this.OrderItemsListBox.Location = new System.Drawing.Point(15, 324);
+            this.OrderItemsListBox.Location = new System.Drawing.Point(15, 333);
             this.OrderItemsListBox.Name = "OrderItemsListBox";
             this.OrderItemsListBox.Size = new System.Drawing.Size(420, 384);
             this.OrderItemsListBox.TabIndex = 1;
@@ -428,7 +525,7 @@
             this.OrdersListBox.ForeColor = System.Drawing.Color.White;
             this.OrdersListBox.FormattingEnabled = true;
             this.OrdersListBox.ItemHeight = 38;
-            this.OrdersListBox.Location = new System.Drawing.Point(15, 48);
+            this.OrdersListBox.Location = new System.Drawing.Point(15, 57);
             this.OrdersListBox.Name = "OrdersListBox";
             this.OrdersListBox.Size = new System.Drawing.Size(420, 270);
             this.OrdersListBox.TabIndex = 0;
@@ -441,11 +538,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1300, 800);
-            this.Controls.Add(this.MainPanel);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.OrdersPanel);
             this.Controls.Add(this.MenuPanel);
             this.Controls.Add(this.MenuBarPanel);
+            this.Controls.Add(this.MainPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AppForm";
@@ -453,6 +550,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.MenuBarPanel.ResumeLayout(false);
             this.MainPanel.ResumeLayout(false);
+            this.MenuPanel.ResumeLayout(false);
             this.OrdersPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -483,6 +581,11 @@
         private System.Windows.Forms.Panel OrdersPanel;
         private System.Windows.Forms.ListBox OrdersListBox;
         private System.Windows.Forms.ListBox OrderItemsListBox;
+        private System.Windows.Forms.Button NewOrderButton;
+        private System.Windows.Forms.Button BillingButton;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button2;
     }
 }
 

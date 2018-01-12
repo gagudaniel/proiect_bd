@@ -33,31 +33,27 @@
             this.MinimizeButton = new System.Windows.Forms.Button();
             this.CloseButton = new System.Windows.Forms.Button();
             this.SignInPanel = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.LoginButton = new System.Windows.Forms.Button();
             this.PasswordLoginTextBox = new System.Windows.Forms.TextBox();
-            this.PasswordLoginLabel = new System.Windows.Forms.Label();
             this.EmailLoginTextBox = new System.Windows.Forms.TextBox();
-            this.EmailLoginLabel = new System.Windows.Forms.Label();
             this.SignUpPanel = new System.Windows.Forms.Panel();
             this.RegisterButton = new System.Windows.Forms.Button();
             this.ConfirmPasswordTextBox = new System.Windows.Forms.TextBox();
-            this.ConfirmPasswordLabel = new System.Windows.Forms.Label();
             this.PasswordTextBox = new System.Windows.Forms.TextBox();
-            this.PasswordLabel = new System.Windows.Forms.Label();
             this.LastNameTextBox = new System.Windows.Forms.TextBox();
             this.EmailTextBox = new System.Windows.Forms.TextBox();
             this.PINTextBox = new System.Windows.Forms.TextBox();
             this.FirstNameTextBox = new System.Windows.Forms.TextBox();
-            this.PIN_label = new System.Windows.Forms.Label();
-            this.email_label = new System.Windows.Forms.Label();
-            this.LastNameLabel = new System.Windows.Forms.Label();
-            this.FirstNameLabel = new System.Windows.Forms.Label();
             this.SignInButton = new System.Windows.Forms.Button();
             this.SignUpButton = new System.Windows.Forms.Button();
             this.SignInUnderlinePanel = new System.Windows.Forms.Panel();
             this.SignUpUnderlinePanel = new System.Windows.Forms.Panel();
             this.BarPanel.SuspendLayout();
             this.SignInPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SignUpPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -110,80 +106,90 @@
             // SignInPanel
             // 
             this.SignInPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.SignInPanel.Controls.Add(this.button1);
+            this.SignInPanel.Controls.Add(this.pictureBox2);
+            this.SignInPanel.Controls.Add(this.pictureBox1);
+            this.SignInPanel.Controls.Add(this.LoginButton);
             this.SignInPanel.Controls.Add(this.PasswordLoginTextBox);
-            this.SignInPanel.Controls.Add(this.PasswordLoginLabel);
             this.SignInPanel.Controls.Add(this.EmailLoginTextBox);
-            this.SignInPanel.Controls.Add(this.EmailLoginLabel);
             this.SignInPanel.Location = new System.Drawing.Point(0, 126);
             this.SignInPanel.Name = "SignInPanel";
             this.SignInPanel.Size = new System.Drawing.Size(500, 574);
             this.SignInPanel.TabIndex = 2;
             // 
-            // button1
+            // pictureBox2
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(250, 357);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(195, 47);
-            this.button1.TabIndex = 26;
-            this.button1.Text = "Log In";
-            this.button1.UseVisualStyleBackColor = true;
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(63, 240);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(35, 34);
+            this.pictureBox2.TabIndex = 28;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.ErrorImage = null;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.InitialImage = null;
+            this.pictureBox1.Location = new System.Drawing.Point(63, 160);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(35, 34);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 27;
+            this.pictureBox1.TabStop = false;
+            // 
+            // LoginButton
+            // 
+            this.LoginButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.LoginButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.LoginButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.LoginButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LoginButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LoginButton.ForeColor = System.Drawing.Color.White;
+            this.LoginButton.Location = new System.Drawing.Point(147, 394);
+            this.LoginButton.Name = "LoginButton";
+            this.LoginButton.Size = new System.Drawing.Size(195, 47);
+            this.LoginButton.TabIndex = 26;
+            this.LoginButton.Text = "Log In";
+            this.LoginButton.UseVisualStyleBackColor = true;
+            this.LoginButton.Click += new System.EventHandler(this.LoginButton_Click);
             // 
             // PasswordLoginTextBox
             // 
+            this.PasswordLoginTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.PasswordLoginTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PasswordLoginTextBox.Location = new System.Drawing.Point(250, 245);
+            this.PasswordLoginTextBox.ForeColor = System.Drawing.Color.White;
+            this.PasswordLoginTextBox.Location = new System.Drawing.Point(104, 240);
             this.PasswordLoginTextBox.Name = "PasswordLoginTextBox";
-            this.PasswordLoginTextBox.Size = new System.Drawing.Size(196, 34);
+            this.PasswordLoginTextBox.Size = new System.Drawing.Size(342, 34);
             this.PasswordLoginTextBox.TabIndex = 24;
-            // 
-            // PasswordLoginLabel
-            // 
-            this.PasswordLoginLabel.AutoSize = true;
-            this.PasswordLoginLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PasswordLoginLabel.ForeColor = System.Drawing.Color.White;
-            this.PasswordLoginLabel.Location = new System.Drawing.Point(40, 245);
-            this.PasswordLoginLabel.Name = "PasswordLoginLabel";
-            this.PasswordLoginLabel.Size = new System.Drawing.Size(120, 29);
-            this.PasswordLoginLabel.TabIndex = 23;
-            this.PasswordLoginLabel.Text = "Password";
+            this.PasswordLoginTextBox.Text = "Password";
+            this.PasswordLoginTextBox.Click += new System.EventHandler(this.PasswordTextBox_Click);
+            this.PasswordLoginTextBox.Validated += new System.EventHandler(this.PasswordTextBox_Validated);
             // 
             // EmailLoginTextBox
             // 
+            this.EmailLoginTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.EmailLoginTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EmailLoginTextBox.Location = new System.Drawing.Point(250, 158);
+            this.EmailLoginTextBox.ForeColor = System.Drawing.Color.White;
+            this.EmailLoginTextBox.Location = new System.Drawing.Point(104, 160);
             this.EmailLoginTextBox.Name = "EmailLoginTextBox";
-            this.EmailLoginTextBox.Size = new System.Drawing.Size(196, 34);
+            this.EmailLoginTextBox.Size = new System.Drawing.Size(342, 34);
             this.EmailLoginTextBox.TabIndex = 21;
-            // 
-            // EmailLoginLabel
-            // 
-            this.EmailLoginLabel.AutoSize = true;
-            this.EmailLoginLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EmailLoginLabel.ForeColor = System.Drawing.Color.White;
-            this.EmailLoginLabel.Location = new System.Drawing.Point(40, 161);
-            this.EmailLoginLabel.Name = "EmailLoginLabel";
-            this.EmailLoginLabel.Size = new System.Drawing.Size(74, 29);
-            this.EmailLoginLabel.TabIndex = 20;
-            this.EmailLoginLabel.Text = "Email";
+            this.EmailLoginTextBox.Text = "Email";
+            this.EmailLoginTextBox.Click += new System.EventHandler(this.EmailTextBox_Click);
+            this.EmailLoginTextBox.TextChanged += new System.EventHandler(this.EmailLoginTextBox_TextChanged);
+            this.EmailLoginTextBox.Validated += new System.EventHandler(this.EmailTextBox_Validated);
             // 
             // SignUpPanel
             // 
             this.SignUpPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.SignUpPanel.Controls.Add(this.RegisterButton);
             this.SignUpPanel.Controls.Add(this.ConfirmPasswordTextBox);
-            this.SignUpPanel.Controls.Add(this.ConfirmPasswordLabel);
             this.SignUpPanel.Controls.Add(this.PasswordTextBox);
-            this.SignUpPanel.Controls.Add(this.PasswordLabel);
             this.SignUpPanel.Controls.Add(this.LastNameTextBox);
             this.SignUpPanel.Controls.Add(this.EmailTextBox);
             this.SignUpPanel.Controls.Add(this.PINTextBox);
             this.SignUpPanel.Controls.Add(this.FirstNameTextBox);
-            this.SignUpPanel.Controls.Add(this.PIN_label);
-            this.SignUpPanel.Controls.Add(this.email_label);
-            this.SignUpPanel.Controls.Add(this.LastNameLabel);
-            this.SignUpPanel.Controls.Add(this.FirstNameLabel);
             this.SignUpPanel.Location = new System.Drawing.Point(0, 126);
             this.SignUpPanel.Name = "SignUpPanel";
             this.SignUpPanel.Size = new System.Drawing.Size(500, 574);
@@ -191,127 +197,97 @@
             // 
             // RegisterButton
             // 
+            this.RegisterButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.RegisterButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.RegisterButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.RegisterButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RegisterButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RegisterButton.Location = new System.Drawing.Point(262, 465);
+            this.RegisterButton.ForeColor = System.Drawing.Color.White;
+            this.RegisterButton.Location = new System.Drawing.Point(147, 480);
             this.RegisterButton.Name = "RegisterButton";
-            this.RegisterButton.Size = new System.Drawing.Size(195, 47);
+            this.RegisterButton.Size = new System.Drawing.Size(200, 50);
             this.RegisterButton.TabIndex = 25;
             this.RegisterButton.Text = "Register";
             this.RegisterButton.UseVisualStyleBackColor = true;
+            this.RegisterButton.Click += new System.EventHandler(this.RegisterButton_Click);
             // 
             // ConfirmPasswordTextBox
             // 
+            this.ConfirmPasswordTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ConfirmPasswordTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ConfirmPasswordTextBox.Location = new System.Drawing.Point(262, 370);
+            this.ConfirmPasswordTextBox.ForeColor = System.Drawing.Color.White;
+            this.ConfirmPasswordTextBox.Location = new System.Drawing.Point(45, 400);
             this.ConfirmPasswordTextBox.Name = "ConfirmPasswordTextBox";
-            this.ConfirmPasswordTextBox.Size = new System.Drawing.Size(196, 34);
+            this.ConfirmPasswordTextBox.Size = new System.Drawing.Size(417, 34);
             this.ConfirmPasswordTextBox.TabIndex = 24;
-            // 
-            // ConfirmPasswordLabel
-            // 
-            this.ConfirmPasswordLabel.AutoSize = true;
-            this.ConfirmPasswordLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ConfirmPasswordLabel.ForeColor = System.Drawing.Color.White;
-            this.ConfirmPasswordLabel.Location = new System.Drawing.Point(52, 370);
-            this.ConfirmPasswordLabel.Name = "ConfirmPasswordLabel";
-            this.ConfirmPasswordLabel.Size = new System.Drawing.Size(208, 29);
-            this.ConfirmPasswordLabel.TabIndex = 23;
-            this.ConfirmPasswordLabel.Text = "Confirm password";
+            this.ConfirmPasswordTextBox.Text = "Confirm password";
+            this.ConfirmPasswordTextBox.Click += new System.EventHandler(this.ConfirmPasswordTextBox_Click);
+            this.ConfirmPasswordTextBox.Validated += new System.EventHandler(this.ConfirmPasswordTextBox_Validated);
             // 
             // PasswordTextBox
             // 
+            this.PasswordTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.PasswordTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PasswordTextBox.Location = new System.Drawing.Point(262, 310);
+            this.PasswordTextBox.ForeColor = System.Drawing.Color.White;
+            this.PasswordTextBox.Location = new System.Drawing.Point(45, 320);
             this.PasswordTextBox.Name = "PasswordTextBox";
-            this.PasswordTextBox.Size = new System.Drawing.Size(196, 34);
+            this.PasswordTextBox.Size = new System.Drawing.Size(417, 34);
             this.PasswordTextBox.TabIndex = 22;
-            // 
-            // PasswordLabel
-            // 
-            this.PasswordLabel.AutoSize = true;
-            this.PasswordLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PasswordLabel.ForeColor = System.Drawing.Color.White;
-            this.PasswordLabel.Location = new System.Drawing.Point(52, 310);
-            this.PasswordLabel.Name = "PasswordLabel";
-            this.PasswordLabel.Size = new System.Drawing.Size(120, 29);
-            this.PasswordLabel.TabIndex = 21;
-            this.PasswordLabel.Text = "Password";
+            this.PasswordTextBox.Text = "Password";
+            this.PasswordTextBox.Click += new System.EventHandler(this.PasswordTextBox_Click);
+            this.PasswordTextBox.Validated += new System.EventHandler(this.PasswordTextBox_Validated);
             // 
             // LastNameTextBox
             // 
+            this.LastNameTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.LastNameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LastNameTextBox.Location = new System.Drawing.Point(262, 130);
+            this.LastNameTextBox.ForeColor = System.Drawing.Color.White;
+            this.LastNameTextBox.Location = new System.Drawing.Point(262, 80);
             this.LastNameTextBox.Name = "LastNameTextBox";
-            this.LastNameTextBox.Size = new System.Drawing.Size(196, 34);
+            this.LastNameTextBox.Size = new System.Drawing.Size(200, 34);
             this.LastNameTextBox.TabIndex = 20;
+            this.LastNameTextBox.Text = "Last name";
+            this.LastNameTextBox.Click += new System.EventHandler(this.LastNameTextBox_Click);
+            this.LastNameTextBox.Validated += new System.EventHandler(this.LastNameTextBox_Validated);
             // 
             // EmailTextBox
             // 
+            this.EmailTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.EmailTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EmailTextBox.Location = new System.Drawing.Point(262, 190);
+            this.EmailTextBox.ForeColor = System.Drawing.Color.White;
+            this.EmailTextBox.Location = new System.Drawing.Point(45, 160);
             this.EmailTextBox.Name = "EmailTextBox";
-            this.EmailTextBox.Size = new System.Drawing.Size(196, 34);
+            this.EmailTextBox.Size = new System.Drawing.Size(417, 34);
             this.EmailTextBox.TabIndex = 19;
+            this.EmailTextBox.Text = "Email";
+            this.EmailTextBox.Click += new System.EventHandler(this.EmailTextBox_Click);
+            this.EmailTextBox.Validated += new System.EventHandler(this.EmailTextBox_Validated);
             // 
             // PINTextBox
             // 
+            this.PINTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.PINTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PINTextBox.Location = new System.Drawing.Point(262, 250);
+            this.PINTextBox.ForeColor = System.Drawing.Color.White;
+            this.PINTextBox.Location = new System.Drawing.Point(45, 240);
             this.PINTextBox.Name = "PINTextBox";
-            this.PINTextBox.Size = new System.Drawing.Size(196, 34);
+            this.PINTextBox.Size = new System.Drawing.Size(417, 34);
             this.PINTextBox.TabIndex = 18;
+            this.PINTextBox.Text = "PIN";
+            this.PINTextBox.Click += new System.EventHandler(this.PINTextBox_Click);
+            this.PINTextBox.Validated += new System.EventHandler(this.PINTextBox_Validated);
             // 
             // FirstNameTextBox
             // 
+            this.FirstNameTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.FirstNameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FirstNameTextBox.Location = new System.Drawing.Point(262, 70);
+            this.FirstNameTextBox.ForeColor = System.Drawing.Color.White;
+            this.FirstNameTextBox.Location = new System.Drawing.Point(45, 80);
             this.FirstNameTextBox.Name = "FirstNameTextBox";
-            this.FirstNameTextBox.Size = new System.Drawing.Size(195, 34);
+            this.FirstNameTextBox.Size = new System.Drawing.Size(200, 34);
             this.FirstNameTextBox.TabIndex = 17;
-            // 
-            // PIN_label
-            // 
-            this.PIN_label.AutoSize = true;
-            this.PIN_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PIN_label.ForeColor = System.Drawing.Color.White;
-            this.PIN_label.Location = new System.Drawing.Point(52, 250);
-            this.PIN_label.Name = "PIN_label";
-            this.PIN_label.Size = new System.Drawing.Size(53, 29);
-            this.PIN_label.TabIndex = 16;
-            this.PIN_label.Text = "PIN";
-            // 
-            // email_label
-            // 
-            this.email_label.AutoSize = true;
-            this.email_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.email_label.ForeColor = System.Drawing.Color.White;
-            this.email_label.Location = new System.Drawing.Point(52, 190);
-            this.email_label.Name = "email_label";
-            this.email_label.Size = new System.Drawing.Size(74, 29);
-            this.email_label.TabIndex = 15;
-            this.email_label.Text = "Email";
-            // 
-            // LastNameLabel
-            // 
-            this.LastNameLabel.AutoSize = true;
-            this.LastNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LastNameLabel.ForeColor = System.Drawing.Color.White;
-            this.LastNameLabel.Location = new System.Drawing.Point(52, 130);
-            this.LastNameLabel.Name = "LastNameLabel";
-            this.LastNameLabel.Size = new System.Drawing.Size(123, 29);
-            this.LastNameLabel.TabIndex = 14;
-            this.LastNameLabel.Text = "Last name";
-            // 
-            // FirstNameLabel
-            // 
-            this.FirstNameLabel.AutoSize = true;
-            this.FirstNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FirstNameLabel.ForeColor = System.Drawing.Color.White;
-            this.FirstNameLabel.Location = new System.Drawing.Point(52, 70);
-            this.FirstNameLabel.Name = "FirstNameLabel";
-            this.FirstNameLabel.Size = new System.Drawing.Size(126, 29);
-            this.FirstNameLabel.TabIndex = 13;
-            this.FirstNameLabel.Text = "First name";
+            this.FirstNameTextBox.Text = "First name";
+            this.FirstNameTextBox.Click += new System.EventHandler(this.FirstNameTextBox_Click);
+            this.FirstNameTextBox.Validated += new System.EventHandler(this.FirstNameTextBox_Validated);
             // 
             // SignInButton
             // 
@@ -370,12 +346,12 @@
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(500, 700);
             this.Controls.Add(this.SignUpUnderlinePanel);
-            this.Controls.Add(this.SignUpPanel);
             this.Controls.Add(this.SignInUnderlinePanel);
             this.Controls.Add(this.SignUpButton);
             this.Controls.Add(this.SignInButton);
-            this.Controls.Add(this.SignInPanel);
             this.Controls.Add(this.BarPanel);
+            this.Controls.Add(this.SignInPanel);
+            this.Controls.Add(this.SignUpPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LoginForm";
@@ -384,6 +360,8 @@
             this.BarPanel.ResumeLayout(false);
             this.SignInPanel.ResumeLayout(false);
             this.SignInPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.SignUpPanel.ResumeLayout(false);
             this.SignUpPanel.PerformLayout();
             this.ResumeLayout(false);
@@ -401,23 +379,17 @@
         private System.Windows.Forms.Button SignUpButton;
         private System.Windows.Forms.Panel SignInUnderlinePanel;
         private System.Windows.Forms.Panel SignUpUnderlinePanel;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox PasswordLoginTextBox;
-        private System.Windows.Forms.Label PasswordLoginLabel;
         private System.Windows.Forms.TextBox EmailLoginTextBox;
-        private System.Windows.Forms.Label EmailLoginLabel;
         private System.Windows.Forms.Button RegisterButton;
         private System.Windows.Forms.TextBox ConfirmPasswordTextBox;
-        private System.Windows.Forms.Label ConfirmPasswordLabel;
         private System.Windows.Forms.TextBox PasswordTextBox;
-        private System.Windows.Forms.Label PasswordLabel;
         private System.Windows.Forms.TextBox LastNameTextBox;
         private System.Windows.Forms.TextBox EmailTextBox;
         private System.Windows.Forms.TextBox PINTextBox;
         private System.Windows.Forms.TextBox FirstNameTextBox;
-        private System.Windows.Forms.Label PIN_label;
-        private System.Windows.Forms.Label email_label;
-        private System.Windows.Forms.Label LastNameLabel;
-        private System.Windows.Forms.Label FirstNameLabel;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button LoginButton;
     }
 }
