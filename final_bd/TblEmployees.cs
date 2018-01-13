@@ -23,9 +23,10 @@ namespace final_bd
         public int EmployeeID { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
-        public string HUID { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public string PIN { get; set; }
+        public string Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TblOrders> TblOrders { get; set; }

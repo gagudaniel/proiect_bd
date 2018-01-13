@@ -57,10 +57,17 @@
             this.NewOrderButton = new System.Windows.Forms.Button();
             this.OrderItemsListBox = new System.Windows.Forms.ListBox();
             this.OrdersListBox = new System.Windows.Forms.ListBox();
+            this.BillingPanel = new System.Windows.Forms.Panel();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.MenuBarPanel.SuspendLayout();
             this.MainPanel.SuspendLayout();
             this.MenuPanel.SuspendLayout();
             this.OrdersPanel.SuspendLayout();
+            this.BillingPanel.SuspendLayout();
+            this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // MenuBarPanel
@@ -89,7 +96,7 @@
             this.button1.ForeColor = System.Drawing.Color.White;
             this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(900, 0);
+            this.button1.Location = new System.Drawing.Point(850, 1);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(332, 70);
             this.button1.TabIndex = 3;
@@ -138,7 +145,7 @@
             this.MenuButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MenuButton.ForeColor = System.Drawing.Color.Transparent;
             this.MenuButton.Image = ((System.Drawing.Image)(resources.GetObject("MenuButton.Image")));
-            this.MenuButton.Location = new System.Drawing.Point(0, 0);
+            this.MenuButton.Location = new System.Drawing.Point(780, 0);
             this.MenuButton.Name = "MenuButton";
             this.MenuButton.Size = new System.Drawing.Size(70, 70);
             this.MenuButton.TabIndex = 0;
@@ -474,6 +481,7 @@
             // BillingButton
             // 
             this.BillingButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.BillingButton.FlatAppearance.BorderSize = 0;
             this.BillingButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
             this.BillingButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
             this.BillingButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -491,6 +499,7 @@
             // NewOrderButton
             // 
             this.NewOrderButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.NewOrderButton.FlatAppearance.BorderSize = 0;
             this.NewOrderButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
             this.NewOrderButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
             this.NewOrderButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -508,29 +517,88 @@
             // OrderItemsListBox
             // 
             this.OrderItemsListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.OrderItemsListBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.OrderItemsListBox.Font = new System.Drawing.Font("Courier New", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.OrderItemsListBox.ForeColor = System.Drawing.Color.White;
             this.OrderItemsListBox.FormattingEnabled = true;
             this.OrderItemsListBox.ItemHeight = 20;
             this.OrderItemsListBox.Location = new System.Drawing.Point(15, 333);
             this.OrderItemsListBox.Name = "OrderItemsListBox";
-            this.OrderItemsListBox.Size = new System.Drawing.Size(420, 384);
+            this.OrderItemsListBox.Size = new System.Drawing.Size(420, 380);
             this.OrderItemsListBox.TabIndex = 1;
             this.OrderItemsListBox.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.OrderItemsListBox_Format);
             // 
             // OrdersListBox
             // 
             this.OrdersListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.OrdersListBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.OrdersListBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.OrdersListBox.ForeColor = System.Drawing.Color.White;
             this.OrdersListBox.FormattingEnabled = true;
             this.OrdersListBox.ItemHeight = 38;
             this.OrdersListBox.Location = new System.Drawing.Point(15, 57);
             this.OrdersListBox.Name = "OrdersListBox";
-            this.OrdersListBox.Size = new System.Drawing.Size(420, 270);
+            this.OrdersListBox.Size = new System.Drawing.Size(420, 266);
             this.OrdersListBox.TabIndex = 0;
             this.OrdersListBox.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.OrdersListBox_Format);
             this.OrdersListBox.SelectedValueChanged += new System.EventHandler(this.OrdersListBox_SelectedValueChanged);
+            // 
+            // BillingPanel
+            // 
+            this.BillingPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.BillingPanel.Controls.Add(this.tabControl1);
+            this.BillingPanel.Controls.Add(this.listBox1);
+            this.BillingPanel.ForeColor = System.Drawing.Color.White;
+            this.BillingPanel.Location = new System.Drawing.Point(0, 71);
+            this.BillingPanel.Name = "BillingPanel";
+            this.BillingPanel.Size = new System.Drawing.Size(1300, 729);
+            this.BillingPanel.TabIndex = 14;
+            // 
+            // listBox1
+            // 
+            this.listBox1.BackColor = System.Drawing.Color.White;
+            this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.listBox1.Font = new System.Drawing.Font("Courier New", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBox1.ForeColor = System.Drawing.Color.Black;
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 20;
+            this.listBox1.Location = new System.Drawing.Point(865, 15);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(420, 640);
+            this.listBox1.TabIndex = 2;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabControl1.Location = new System.Drawing.Point(41, 15);
+            this.tabControl1.Multiline = true;
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(780, 640);
+            this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.tabControl1.TabIndex = 4;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.Color.White;
+            this.tabPage1.Location = new System.Drawing.Point(4, 29);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(772, 607);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Drinks";
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 29);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(772, 607);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // AppForm
             // 
@@ -543,6 +611,7 @@
             this.Controls.Add(this.MenuPanel);
             this.Controls.Add(this.MenuBarPanel);
             this.Controls.Add(this.MainPanel);
+            this.Controls.Add(this.BillingPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AppForm";
@@ -552,6 +621,8 @@
             this.MainPanel.ResumeLayout(false);
             this.MenuPanel.ResumeLayout(false);
             this.OrdersPanel.ResumeLayout(false);
+            this.BillingPanel.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -586,6 +657,11 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Panel BillingPanel;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
     }
 }
 

@@ -55,6 +55,7 @@ public partial class AppForm : Form
             InitializeComponent();
             MainPanel.BringToFront();
             MenuBarPanel.BringToFront();
+            //BillingPanel.BringToFront();
             OrdersListBox.DataSource = open_orders_binding_list;
             OrderItemsListBox.DataSource = order_items_binding_list;
             OrderItemsListBox.DisplayMember = "Description";
@@ -74,7 +75,7 @@ public partial class AppForm : Form
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            MainPanel.BringToFront();
+            //MainPanel.BringToFront();
 
 
         }

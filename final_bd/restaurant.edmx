@@ -12,9 +12,10 @@
           <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LastName" Type="nvarchar" MaxLength="50" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
-          <Property Name="HUID" Type="nvarchar" MaxLength="13" />
+          <Property Name="PIN" Type="nvarchar" MaxLength="13" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="64" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="TblOrderItems">
           <Key>
@@ -30,8 +31,8 @@
           <Key>
             <PropertyRef Name="OrderID" />
           </Key>
-          <Property Name="OrderID" Type="int" Nullable="false" />
-          <Property Name="NumberOfCustomers" Type="int" />
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Guests" Type="int" />
           <Property Name="TableID" Type="int" />
           <Property Name="EmployeeID" Type="int" />
           <Property Name="OrderState" Type="nvarchar" MaxLength="50" />
@@ -53,7 +54,6 @@
             <PropertyRef Name="TableID" />
           </Key>
           <Property Name="TableID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Capacity" Type="int" />
           <Property Name="Details" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_OrderItems_Orders">
@@ -138,10 +138,11 @@
           <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="HUID" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TblOrders" Relationship="Self.FK_Orders_Employees" FromRole="TblEmployees" ToRole="TblOrders" />
+          <Property Name="PIN" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TblOrderItems">
           <Key>
@@ -160,7 +161,6 @@
             <PropertyRef Name="OrderID" />
           </Key>
           <Property Name="OrderID" Type="Int32" Nullable="false" />
-          <Property Name="NumberOfCustomers" Type="Int32" />
           <Property Name="TableID" Type="Int32" />
           <Property Name="EmployeeID" Type="Int32" />
           <Property Name="OrderState" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -168,6 +168,7 @@
           <NavigationProperty Name="TblEmployees" Relationship="Self.FK_Orders_Employees" FromRole="TblOrders" ToRole="TblEmployees" />
           <NavigationProperty Name="TblOrderItems" Relationship="Self.FK_OrderItems_Orders" FromRole="TblOrders" ToRole="TblOrderItems" />
           <NavigationProperty Name="TblTables" Relationship="Self.FK_Orders_Tables" FromRole="TblOrders" ToRole="TblTables" />
+          <Property Name="Guests" Type="Int32" />
         </EntityType>
         <EntityType Name="TblProducts">
           <Key>
@@ -186,7 +187,6 @@
             <PropertyRef Name="TableID" />
           </Key>
           <Property Name="TableID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Capacity" Type="Int32" />
           <Property Name="Details" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TblOrders" Relationship="Self.FK_Orders_Tables" FromRole="TblTables" ToRole="TblOrders" />
         </EntityType>
@@ -270,10 +270,11 @@
           <EntitySetMapping Name="TblEmployees">
             <EntityTypeMapping TypeName="restaurantModel.TblEmployees">
               <MappingFragment StoreEntitySet="TblEmployees">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="PIN" ColumnName="PIN" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="HUID" ColumnName="HUID" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
               </MappingFragment>
@@ -293,8 +294,8 @@
           <EntitySetMapping Name="TblOrders">
             <EntityTypeMapping TypeName="restaurantModel.TblOrders">
               <MappingFragment StoreEntitySet="TblOrders">
+                <ScalarProperty Name="Guests" ColumnName="Guests" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="NumberOfCustomers" ColumnName="NumberOfCustomers" />
                 <ScalarProperty Name="TableID" ColumnName="TableID" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="OrderState" ColumnName="OrderState" />
@@ -318,7 +319,6 @@
             <EntityTypeMapping TypeName="restaurantModel.TblTables">
               <MappingFragment StoreEntitySet="TblTables">
                 <ScalarProperty Name="TableID" ColumnName="TableID" />
-                <ScalarProperty Name="Capacity" ColumnName="Capacity" />
                 <ScalarProperty Name="Details" ColumnName="Details" />
               </MappingFragment>
             </EntityTypeMapping>

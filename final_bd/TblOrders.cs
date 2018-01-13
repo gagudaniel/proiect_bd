@@ -21,11 +21,11 @@ namespace final_bd
         }
     
         public int OrderID { get; set; }
-        public Nullable<int> NumberOfCustomers { get; set; }
         public Nullable<int> TableID { get; set; }
         public Nullable<int> EmployeeID { get; set; }
         public string OrderState { get; set; }
         public Nullable<System.DateTime> Datetime { get; set; }
+        public Nullable<int> Guests { get; set; }
     
         public virtual TblEmployees TblEmployees { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
