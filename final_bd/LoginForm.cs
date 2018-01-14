@@ -10,8 +10,27 @@ using System.Windows.Forms;
 
 namespace final_bd
 {
+    
     public partial class LoginForm : Form
     {
+        TblEmployees loggedEmployee=new TblEmployees();
+        private restaurantEntities res_db = new restaurantEntities();
+        //public static TblEmployees LoggedEmployee
+        //{
+        //    get
+        //    {
+        //        if (loggedEmployee == null) loggedEmployee = new TblEmployees();
+        //        return loggedEmployee;
+        //    }
+
+        //    set
+        //    {
+        //        if (loggedEmployee == null) loggedEmployee = new TblEmployees();
+                
+        //    }
+        //}
+
+
         public LoginForm()
         {
             InitializeComponent();
@@ -138,7 +157,35 @@ namespace final_bd
 
         private void LoginButton_Click(object sender, EventArgs e)
         {
-            AppForm app_main_form = new AppForm();
+            var get_loggedEmployee_query = (from employees in res_db.TblEmployees
+                                      where employees.Email.Equals(EmailLoginTextBox.Text)
+                                      where employees.Password.Equals(PasswordLoginTextBox.Text)
+                                      select new
+                                      {
+                                          EmployeeID = employees.EmployeeID,
+                                          LastName = employees.LastName,
+                                          FirstName = employees.FirstName,
+                                          PIN = employees.PIN,
+                                          Email=employees.Email,
+                                          Password=employees.Password,
+                                          Status=employees.Status
+                                      }
+                                    );
+            bool user_found = false;
+            foreach (var log_emp in get_loggedEmployee_query)
+            {
+                user_found = true;
+                loggedEmployee.EmployeeID = log_emp.EmployeeID;
+                loggedEmployee.LastName = log_emp.LastName;
+                loggedEmployee.FirstName = log_emp.FirstName;
+                loggedEmployee.PIN = log_emp.PIN;
+                loggedEmployee.Email = log_emp.Email;
+                loggedEmployee.Password = log_emp.Password;
+                loggedEmployee.Status = log_emp.Status;
+                break;
+            }
+            if (user_found == false) return;
+            AppForm app_main_form = new AppForm(loggedEmployee);
             Hide();
             app_main_form.ShowDialog();
             Close();

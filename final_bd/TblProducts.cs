@@ -23,11 +23,12 @@ namespace final_bd
         public int ProductID { get; set; }
         public string Description { get; set; }
         public Nullable<double> Price { get; set; }
-        public string ProductType { get; set; }
+        public Nullable<int> ProductType { get; set; }
         public byte[] Image { get; set; }
         public string Stock { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TblOrderItems> TblOrderItems { get; set; }
+        public virtual TblProductTypes TblProductTypes { get; set; }
     }
 }

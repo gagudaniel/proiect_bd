@@ -12,23 +12,18 @@ namespace final_bd
     using System;
     using System.Collections.Generic;
     
-    public partial class TblEmployees
+    public partial class TblProductTypes
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TblEmployees()
+        public TblProductTypes()
         {
-            this.TblOrders = new HashSet<TblOrders>();
+            this.TblProducts = new HashSet<TblProducts>();
         }
     
-        public int EmployeeID { get; set; }
-        public string LastName { get; set; }
-        public string FirstName { get; set; }
-        public string PIN { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string Status { get; set; }
+        public int ProductType { get; set; }
+        public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TblOrders> TblOrders { get; set; }
+        public virtual ICollection<TblProducts> TblProducts { get; set; }
     }
 }

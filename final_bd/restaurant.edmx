@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="restaurantModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="restaurantModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="TblEmployees">
           <Key>
             <PropertyRef Name="EmployeeID" />
@@ -21,7 +21,7 @@
           <Key>
             <PropertyRef Name="OrderItemID" />
           </Key>
-          <Property Name="OrderItemID" Type="int" Nullable="false" />
+          <Property Name="OrderItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrderID" Type="int" />
           <Property Name="ProductID" Type="int" />
           <Property Name="ItemState" Type="nvarchar" MaxLength="50" />
@@ -42,19 +42,38 @@
           <Key>
             <PropertyRef Name="ProductID" />
           </Key>
-          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="512" />
           <Property Name="Price" Type="float" />
-          <Property Name="ProductType" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProductType" Type="int" />
           <Property Name="Image" Type="image" />
           <Property Name="Stock" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TblProductTypes">
+          <Key>
+            <PropertyRef Name="ProductType" />
+          </Key>
+          <Property Name="ProductType" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="TblTables">
           <Key>
             <PropertyRef Name="TableID" />
           </Key>
           <Property Name="TableID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Details" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'restaurant.dbo.OrderItem' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="OrderItem">
+          <Key>
+            <PropertyRef Name="OrderItemID" />
+            <PropertyRef Name="Quantity" />
+          </Key>
+          <Property Name="OrderID" Type="int" />
+          <Property Name="OrderItemID" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="512" />
+          <Property Name="Price" Type="float" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_OrderItems_Orders">
           <End Role="TblOrders" Type="Self.TblOrders" Multiplicity="0..1" />
@@ -65,18 +84,6 @@
             </Principal>
             <Dependent Role="TblOrderItems">
               <PropertyRef Name="OrderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderItems_Products">
-          <End Role="TblProducts" Type="Self.TblProducts" Multiplicity="0..1" />
-          <End Role="TblOrderItems" Type="Self.TblOrderItems" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TblProducts">
-              <PropertyRef Name="ProductID" />
-            </Principal>
-            <Dependent Role="TblOrderItems">
-              <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -104,18 +111,79 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TblOrderItems_TblProducts">
+          <End Role="TblProducts" Type="Self.TblProducts" Multiplicity="0..1" />
+          <End Role="TblOrderItems" Type="Self.TblOrderItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblProducts">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="TblOrderItems">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblProducts_TblProductTypes">
+          <End Role="TblProductTypes" Type="Self.TblProductTypes" Multiplicity="0..1" />
+          <End Role="TblProducts" Type="Self.TblProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblProductTypes">
+              <PropertyRef Name="ProductType" />
+            </Principal>
+            <Dependent Role="TblProducts">
+              <PropertyRef Name="ProductType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="restaurantModelStoreContainer">
           <EntitySet Name="TblEmployees" EntityType="Self.TblEmployees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TblOrderItems" EntityType="Self.TblOrderItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TblOrders" EntityType="Self.TblOrders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TblProducts" EntityType="Self.TblProducts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblProductTypes" EntityType="Self.TblProductTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TblTables" EntityType="Self.TblTables" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderItem" EntityType="Self.OrderItem" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [OrderItem].[OrderID] AS [OrderID], 
+    [OrderItem].[OrderItemID] AS [OrderItemID], 
+    [OrderItem].[Description] AS [Description], 
+    [OrderItem].[Price] AS [Price], 
+    [OrderItem].[Quantity] AS [Quantity]
+    FROM [dbo].[OrderItem] AS [OrderItem]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_OrderItems_Orders" Association="Self.FK_OrderItems_Orders">
             <End Role="TblOrders" EntitySet="TblOrders" />
-            <End Role="TblOrderItems" EntitySet="TblOrderItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderItems_Products" Association="Self.FK_OrderItems_Products">
-            <End Role="TblProducts" EntitySet="TblProducts" />
             <End Role="TblOrderItems" EntitySet="TblOrderItems" />
           </AssociationSet>
           <AssociationSet Name="FK_Orders_Employees" Association="Self.FK_Orders_Employees">
@@ -126,8 +194,17 @@
             <End Role="TblTables" EntitySet="TblTables" />
             <End Role="TblOrders" EntitySet="TblOrders" />
           </AssociationSet>
+          <AssociationSet Name="FK_TblOrderItems_TblProducts" Association="Self.FK_TblOrderItems_TblProducts">
+            <End Role="TblProducts" EntitySet="TblProducts" />
+            <End Role="TblOrderItems" EntitySet="TblOrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblProducts_TblProductTypes" Association="Self.FK_TblProducts_TblProductTypes">
+            <End Role="TblProductTypes" EntitySet="TblProductTypes" />
+            <End Role="TblProducts" EntitySet="TblProducts" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="restaurantModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -138,29 +215,30 @@
           <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PIN" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="TblOrders" Relationship="Self.FK_Orders_Employees" FromRole="TblEmployees" ToRole="TblOrders" />
-          <Property Name="PIN" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TblOrders" Relationship="Self.FK_Orders_Employees" FromRole="TblEmployees" ToRole="TblOrders" />
         </EntityType>
         <EntityType Name="TblOrderItems">
           <Key>
             <PropertyRef Name="OrderItemID" />
           </Key>
-          <Property Name="OrderItemID" Type="Int32" Nullable="false" />
+          <Property Name="OrderItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OrderID" Type="Int32" />
           <Property Name="ProductID" Type="Int32" />
           <Property Name="ItemState" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <NavigationProperty Name="TblOrders" Relationship="Self.FK_OrderItems_Orders" FromRole="TblOrderItems" ToRole="TblOrders" />
-          <NavigationProperty Name="TblProducts" Relationship="Self.FK_OrderItems_Products" FromRole="TblOrderItems" ToRole="TblProducts" />
+          <NavigationProperty Name="TblProducts" Relationship="Self.FK_TblOrderItems_TblProducts" FromRole="TblOrderItems" ToRole="TblProducts" />
         </EntityType>
         <EntityType Name="TblOrders">
           <Key>
             <PropertyRef Name="OrderID" />
           </Key>
-          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Guests" Type="Int32" />
           <Property Name="TableID" Type="Int32" />
           <Property Name="EmployeeID" Type="Int32" />
           <Property Name="OrderState" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -168,27 +246,45 @@
           <NavigationProperty Name="TblEmployees" Relationship="Self.FK_Orders_Employees" FromRole="TblOrders" ToRole="TblEmployees" />
           <NavigationProperty Name="TblOrderItems" Relationship="Self.FK_OrderItems_Orders" FromRole="TblOrders" ToRole="TblOrderItems" />
           <NavigationProperty Name="TblTables" Relationship="Self.FK_Orders_Tables" FromRole="TblOrders" ToRole="TblTables" />
-          <Property Name="Guests" Type="Int32" />
         </EntityType>
         <EntityType Name="TblProducts">
           <Key>
             <PropertyRef Name="ProductID" />
           </Key>
-          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Description" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
           <Property Name="Price" Type="Double" />
-          <Property Name="ProductType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProductType" Type="Int32" />
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Stock" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="TblOrderItems" Relationship="Self.FK_OrderItems_Products" FromRole="TblProducts" ToRole="TblOrderItems" />
+          <NavigationProperty Name="TblOrderItems" Relationship="Self.FK_TblOrderItems_TblProducts" FromRole="TblProducts" ToRole="TblOrderItems" />
+          <NavigationProperty Name="TblProductTypes" Relationship="Self.FK_TblProducts_TblProductTypes" FromRole="TblProducts" ToRole="TblProductTypes" />
+        </EntityType>
+        <EntityType Name="TblProductTypes">
+          <Key>
+            <PropertyRef Name="ProductType" />
+          </Key>
+          <Property Name="ProductType" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TblProducts" Relationship="Self.FK_TblProducts_TblProductTypes" FromRole="TblProductTypes" ToRole="TblProducts" />
         </EntityType>
         <EntityType Name="TblTables">
           <Key>
             <PropertyRef Name="TableID" />
           </Key>
           <Property Name="TableID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Details" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TblOrders" Relationship="Self.FK_Orders_Tables" FromRole="TblTables" ToRole="TblOrders" />
+        </EntityType>
+        <EntityType Name="OrderItem">
+          <Key>
+            <PropertyRef Name="OrderItemID" />
+            <PropertyRef Name="Quantity" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" />
+          <Property Name="OrderItemID" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Double" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_Orders_Employees">
           <End Role="TblEmployees" Type="Self.TblEmployees" Multiplicity="0..1" />
@@ -214,7 +310,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OrderItems_Products">
+        <Association Name="FK_TblOrderItems_TblProducts">
           <End Role="TblProducts" Type="Self.TblProducts" Multiplicity="0..1" />
           <End Role="TblOrderItems" Type="Self.TblOrderItems" Multiplicity="*" />
           <ReferentialConstraint>
@@ -238,12 +334,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TblProducts_TblProductTypes">
+          <End Role="TblProductTypes" Type="Self.TblProductTypes" Multiplicity="0..1" />
+          <End Role="TblProducts" Type="Self.TblProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblProductTypes">
+              <PropertyRef Name="ProductType" />
+            </Principal>
+            <Dependent Role="TblProducts">
+              <PropertyRef Name="ProductType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="restaurantEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="TblEmployees" EntityType="Self.TblEmployees" />
           <EntitySet Name="TblOrderItems" EntityType="Self.TblOrderItems" />
           <EntitySet Name="TblOrders" EntityType="Self.TblOrders" />
           <EntitySet Name="TblProducts" EntityType="Self.TblProducts" />
+          <EntitySet Name="TblProductTypes" EntityType="Self.TblProductTypes" />
           <EntitySet Name="TblTables" EntityType="Self.TblTables" />
+          <EntitySet Name="OrderItem" EntityType="Self.OrderItem" />
           <AssociationSet Name="FK_Orders_Employees" Association="Self.FK_Orders_Employees">
             <End Role="TblEmployees" EntitySet="TblEmployees" />
             <End Role="TblOrders" EntitySet="TblOrders" />
@@ -252,7 +362,7 @@
             <End Role="TblOrders" EntitySet="TblOrders" />
             <End Role="TblOrderItems" EntitySet="TblOrderItems" />
           </AssociationSet>
-          <AssociationSet Name="FK_OrderItems_Products" Association="Self.FK_OrderItems_Products">
+          <AssociationSet Name="FK_TblOrderItems_TblProducts" Association="Self.FK_TblOrderItems_TblProducts">
             <End Role="TblProducts" EntitySet="TblProducts" />
             <End Role="TblOrderItems" EntitySet="TblOrderItems" />
           </AssociationSet>
@@ -260,7 +370,52 @@
             <End Role="TblTables" EntitySet="TblTables" />
             <End Role="TblOrders" EntitySet="TblOrders" />
           </AssociationSet>
+          <AssociationSet Name="FK_TblProducts_TblProductTypes" Association="Self.FK_TblProducts_TblProductTypes">
+            <End Role="TblProductTypes" EntitySet="TblProductTypes" />
+            <End Role="TblProducts" EntitySet="TblProducts" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(restaurantModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(restaurantModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
         </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -270,13 +425,13 @@
           <EntitySetMapping Name="TblEmployees">
             <EntityTypeMapping TypeName="restaurantModel.TblEmployees">
               <MappingFragment StoreEntitySet="TblEmployees">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="PIN" ColumnName="PIN" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="PIN" ColumnName="PIN" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -294,8 +449,8 @@
           <EntitySetMapping Name="TblOrders">
             <EntityTypeMapping TypeName="restaurantModel.TblOrders">
               <MappingFragment StoreEntitySet="TblOrders">
-                <ScalarProperty Name="Guests" ColumnName="Guests" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="Guests" ColumnName="Guests" />
                 <ScalarProperty Name="TableID" ColumnName="TableID" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="OrderState" ColumnName="OrderState" />
@@ -315,14 +470,56 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="TblProductTypes">
+            <EntityTypeMapping TypeName="restaurantModel.TblProductTypes">
+              <MappingFragment StoreEntitySet="TblProductTypes">
+                <ScalarProperty Name="ProductType" ColumnName="ProductType" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TblTables">
             <EntityTypeMapping TypeName="restaurantModel.TblTables">
               <MappingFragment StoreEntitySet="TblTables">
                 <ScalarProperty Name="TableID" ColumnName="TableID" />
-                <ScalarProperty Name="Details" ColumnName="Details" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="OrderItem">
+            <EntityTypeMapping TypeName="restaurantModel.OrderItem">
+              <MappingFragment StoreEntitySet="OrderItem">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="OrderItemID" ColumnName="OrderItemID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="restaurantModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="restaurantModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="restaurantModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="restaurantModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="restaurantModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="restaurantModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="restaurantModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="restaurantModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="restaurantModel.Store.sp_upgraddiagrams" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -11,57 +11,145 @@ using System.Windows.Forms;
 namespace final_bd
 {
     
-    public struct OpenOrder
-    {
-       public string Table;
-       public int OrderID;
-
-       public OpenOrder(string Table,int OrderID)
-        {
-            this.Table = Table;
-            this.OrderID = OrderID;
-        }
-    }
-    public struct OrderItem
-    {
-        public string Description;
-        public int OrderID;
-        public int OrderItemID;
-        public string ItemState;
-
-        public OrderItem(string Description,int OrderID,int OrderItemID,string ItemState)
-        {
-            this.Description = Description;
-            this.OrderID = OrderID;
-            this.OrderItemID = OrderItemID;
-            this.ItemState = ItemState;
-        }
-    }
+   
+    
 
 
 public partial class AppForm : Form
     {
         private restaurantEntities res_db = new restaurantEntities();
-        private BindingList<OpenOrder> open_orders_binding_list = new BindingList<OpenOrder>();
+        private BindingList<TblOrders> open_orders_binding_list = new BindingList<TblOrders>();
         private BindingList<OrderItem> order_items_binding_list = new BindingList<OrderItem>();
         int mouseX = 0, mouseY = 0;
         bool mouseDown;
-        bool menu = true;
-        
+        bool show_menuPanel = false;
+        bool show_ordersPanel = false;
+        bool show_billingPanel = false;
+        List<int> guest_count_list = new List<int>();
 
-        public AppForm()
+
+        List<Button> table_buttons = new List<Button>();
+        TblTables current_table=new TblTables();
+        TblOrders current_open_order = new TblOrders();
+        TblEmployees currentEmployee = new TblEmployees();
+        public AppForm(TblEmployees loggedEmployee)
         {
-
+            
+            
+            currentEmployee = loggedEmployee;
+            
             InitializeComponent();
             MainPanel.BringToFront();
             MenuBarPanel.BringToFront();
-            //BillingPanel.BringToFront();
+           
+            TablesButton.Hide();
+            TableLabel.Hide();
+            OrdersButton.Hide();
+            OrderNrLabel.Hide();
+
+            table_buttons.Add(Table1Button);
+            table_buttons.Add(Table2Button);
+            table_buttons.Add(Table3Button);
+            table_buttons.Add(Table4Button);
+            table_buttons.Add(Table5Button);
+            table_buttons.Add(Table6Button);
+            table_buttons.Add(Table7Button);
+            table_buttons.Add(Table8Button);
+            table_buttons.Add(Table9Button);
+            table_buttons.Add(BarButton);
+            UpdateTableButtons();
+            for(int i=1;i<31;i++)
+            {
+                guest_count_list.Add(i);
+            }
+            GuestCountListBox.DataSource = guest_count_list;
             OrdersListBox.DataSource = open_orders_binding_list;
             OrderItemsListBox.DataSource = order_items_binding_list;
             OrderItemsListBox.DisplayMember = "Description";
             OrdersListBox.DisplayMember = "Table";
+            CreateProductsTabbedPanel();
+            AddItemsToProductsTabbedPanel();
         }
 
+        private void AddItemsToProductsTabbedPanel()
+        {
+            int i = 0;
+            foreach (TabPage tp in ProductsTabControl.TabPages)
+            {
+                var products_by_type_query = res_db.TblProducts.Where(x=>x.ProductType==i);
+                FlowLayoutPanel flp = new FlowLayoutPanel();
+                flp.Dock = DockStyle.Fill;
+                flp.AutoScroll = true;
+                foreach (TblProducts product in products_by_type_query)
+                {
+                    Button prod_button = new Button();
+
+                    prod_button.Size = new Size(161, 145);
+                    prod_button.Font = new Font(prod_button.Font.FontFamily, 8);
+                    prod_button.FlatStyle = FlatStyle.Flat;
+                    prod_button.FlatAppearance.BorderColor = Color.Black;
+                    prod_button.BackColor = Color.Gray;
+                    prod_button.ForeColor = Color.Black;
+                    prod_button.Text = product.Description;
+                    prod_button.TextAlign = ContentAlignment.BottomCenter;
+                    prod_button.Tag = product;
+                    prod_button.Click += new EventHandler(AddProductToCurrentOrder);
+                    flp.Controls.Add(prod_button);
+                    flp.BackColor = Color.White;
+                }
+                tp.AutoScroll = true;
+                tp.Controls.Add(flp);
+                i++;
+            }
+
+        }
+
+        private void AddProductToCurrentOrder(object sender ,EventArgs e)
+        {
+            Button product_button = (Button)sender;
+
+            TblProducts product = (TblProducts)product_button.Tag;
+
+            TblOrderItems multiple_product = res_db.TblOrderItems.FirstOrDefault(x => x.OrderID == current_open_order.OrderID && x.ProductID==product.ProductID);
+
+
+
+
+            if (multiple_product==null)
+            {
+                TblOrderItems item = new TblOrderItems()
+                {
+                    OrderID = current_open_order.OrderID,
+                    ProductID = product.ProductID,
+                    ItemState = "Ready",
+                    Quantity = 1
+                };
+                res_db.TblOrderItems.Add(item);
+                res_db.SaveChanges();
+            }
+            else
+            {
+               
+                multiple_product.OrderID = current_open_order.OrderID;
+                multiple_product.Quantity+=1;
+                res_db.Entry(multiple_product).State = System.Data.Entity.EntityState.Modified;
+                res_db.SaveChanges();
+            }
+            UpdateCurrentOrderItems();
+
+
+
+        }
+
+        private void CreateProductsTabbedPanel()
+        {
+            var product_types_query = (from pt in res_db.TblProductTypes            
+                                       select pt);
+            foreach (var type in product_types_query)
+            {
+                ProductsTabControl.TabPages.Add(type.ProductType.ToString(), type.Description.ToString());
+            }
+        }
 
         private void MainPanel_Paint(object sender, PaintEventArgs e)
         {
@@ -114,139 +202,194 @@ public partial class AppForm : Form
         {
 
             MainPanel.BringToFront();
-            menu = true;
-
+            show_menuPanel = false;
+           
         }
 
         private void MenuButton_Click(object sender, EventArgs e)
         {
 
-            if (menu == true)
+            if (show_menuPanel == false)
             {
 
                 MenuPanel.BringToFront();
-                menu = false;
+                show_menuPanel = true;
             }
             else
             {
                 MenuPanel.SendToBack();
-                menu = true;
+                show_menuPanel = false;
             }
-        }
-
-        private void OrderPanel_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void OrdersListBox_Format(object sender, ListControlConvertEventArgs e)
         {
-            string currentTable = ((OpenOrder)e.ListItem).Table;
-            string currentOrder= ((OpenOrder)e.ListItem).OrderID.ToString();
+            string currentTable = ((TblOrders)e.ListItem).TableID.ToString();
+            string currentOrder= ((TblOrders)e.ListItem).OrderID.ToString();
 
             e.Value = currentTable + " (№" + currentOrder + "):";
         }
 
         private void OrderItemsListBox_Format(object sender, ListControlConvertEventArgs e)
         {
-            
-
-            string currentDescription = ((OrderItem)e.ListItem).Description;
-            string currentState = ((OrderItem)e.ListItem).ItemState;
-            string currentDescriptionPadded = currentDescription.PadRight(35,' ');
-            e.Value = currentDescriptionPadded + currentState;
+            double SubTotal = (double)((OrderItem)e.ListItem).Price * ((OrderItem)e.ListItem).Quantity;
+            double Price = (double)((OrderItem)e.ListItem).Price;
+            string currentDescription = ((OrderItem)e.ListItem).Description.PadRight(28);
+            string currentQuantity = ((OrderItem)e.ListItem).Quantity.ToString().PadRight(8);
+            string currentPrice =string.Format("{0:0.00}",Price).PadRight(8);
+            string currentSubTotal = string.Format("{0:0.00}",SubTotal);
+           
+            e.Value = currentDescription + currentQuantity + currentPrice + currentSubTotal;
         }
 
-        private void OrdersListBox_SelectedValueChanged(object sender, EventArgs e)
+        private void TableButton_Click(object sender, EventArgs e)
         {
-            if (OrdersListBox.Items.Count == 0) return;
-            OpenOrder current_open_order = (OpenOrder)OrdersListBox.SelectedItem;
+           
+            Button table_button = (Button)sender;
+            current_table.TableID = Int32.Parse(table_button.Text);
 
-            var order_items_query = (from orders in res_db.TblOrders
-                                     join order_items in res_db.TblOrderItems on orders.OrderID equals order_items.OrderID
-                                     join products in res_db.TblProducts on order_items.ProductID equals products.ProductID
-                                     where orders.OrderState.Equals("Open")
-                                     where orders.OrderID.Equals(current_open_order.OrderID)
-                                     select new
-                                     {
-                                         Description = products.Description,
-                                         OrderID = orders.OrderID,
-                                         OrderItemID = order_items.OrderItemID,
-                                         ItemState = order_items.ItemState
-                                     });
 
-            order_items_binding_list.Clear();
-            foreach (var order_item in order_items_query)
-            {
-                order_items_binding_list.Add(new OrderItem(order_item.Description, order_item.OrderID, order_item.OrderItemID, order_item.ItemState));
+
+            UpdateCurrentTableOpenOrders();
+
+                if (open_orders_binding_list.Count != 0)
+                {
+                    current_open_order = (TblOrders)OrdersListBox.SelectedItem;
+                    OrderNrLabel.Text = "#" + current_open_order.OrderID.ToString();
+                    UpdateCurrentOrderItems();                    
+                    BillingPanel.BringToFront();
+                    TablesButton.Show();
+                    OrdersButton.Show();
+                    TableLabel.Show();
+                    OrderNrLabel.Show();
+                    OrderNrLabel.BringToFront();
+                    show_billingPanel = true ;
+
             }
-
+                else
+                {
+                    GuestCountPanel.BringToFront();
+                  
+                }
+            
            
             
         }
 
-        private void MenuBarPanel_Paint(object sender, PaintEventArgs e)
+        private void UpdateCurrentTableOpenOrders()
         {
-
+            var query = res_db.TblOrders.Where(s => s.TableID == current_table.TableID);
+            open_orders_binding_list.Clear();
+            foreach (var order in query)
+            {
+                open_orders_binding_list.Add(order);
+            }
         }
 
-        void MasaButton_Click(object sender, EventArgs e)
+        private void UpdateCurrentOrderItems()
         {
-            Button table_button = (Button)sender;
-
-            var open_orders_query = (from orders in res_db.TblOrders
-                                     join tables in res_db.TblTables on orders.TableID equals tables.TableID
-                                     where orders.OrderState.Equals("Open")
-                                     where tables.Details.Equals(table_button.Text)
-                                     select new
-                                     {
-                                         Table = tables.Details,
-                                         OrderID = orders.OrderID
-                                     });
-
-
-            open_orders_binding_list.Clear();
             
-            foreach (var order in open_orders_query)
+            var query = res_db.OrderItem.Where(s => s.OrderID == current_open_order.OrderID);
+            order_items_binding_list.Clear();
+            foreach (var item in query)
             {
-                open_orders_binding_list.Add(new OpenOrder(order.Table, order.OrderID));
+                order_items_binding_list.Add(item);
             }
-            if(open_orders_binding_list.Count!=0)
+        }
+
+        private void NewOrderButton_Click(object sender, EventArgs e)
+        {
+            GuestCountPanel.BringToFront();
+        }
+
+        private void GuestCountPanelCloseButton_Click(object sender, EventArgs e)
+        {
+            GuestCountPanel.SendToBack();
+        }  
+
+        private void TablesButton_Click(object sender, EventArgs e)
+        {
+            show_billingPanel = false;
+            show_ordersPanel = false;
+            TablesButton.Hide();
+            OrdersButton.Hide();
+            OrderNrLabel.Hide();
+            TableLabel.Hide();
+            UpdateTableButtons();
+            MainPanel.BringToFront();
+        }
+
+        private void OrdersButton_Click(object sender, EventArgs e)
+        {
+            if (show_ordersPanel == false)
             {
-                OpenOrder current_open_order = (OpenOrder)OrdersListBox.SelectedItem;
-
-                var order_items_query = (from orders in res_db.TblOrders
-                                         join order_items in res_db.TblOrderItems on orders.OrderID equals order_items.OrderID
-                                         join products in res_db.TblProducts on order_items.ProductID equals products.ProductID
-                                         where orders.OrderState.Equals("Open")
-                                         where orders.OrderID.Equals(current_open_order.OrderID)
-                                         select new
-                                         {
-                                             Description = products.Description,
-                                             OrderID = orders.OrderID,
-                                             OrderItemID = order_items.OrderItemID,
-                                             ItemState = order_items.ItemState
-                                         });
-
-                order_items_binding_list.Clear();
-                foreach (var order_item in order_items_query)
-                {
-                    order_items_binding_list.Add(new OrderItem(order_item.Description, order_item.OrderID, order_item.OrderItemID, order_item.ItemState));
-                }
+                OrdersPanel.BringToFront();
+                show_ordersPanel = true;
             }
             else
             {
-                order_items_binding_list.Clear();
+                OrdersPanel.SendToBack();
+                GuestCountPanel.SendToBack();
+                show_ordersPanel = false;
             }
-
-
-
-
-            OrdersPanel.BringToFront();
-
-
         }
 
+        private void GuestCountListBox_Click(object sender, EventArgs e)
+        {
+           
+            TblOrders newOrder = new TblOrders { Guests = (int)GuestCountListBox.SelectedItem, TableID = current_table.TableID, EmployeeID = currentEmployee.EmployeeID, OrderState = "Open", Datetime = DateTime.Now };
+            res_db.TblOrders.Add(newOrder);
+            res_db.SaveChanges();
 
+
+            UpdateCurrentTableOpenOrders();
+            OrdersListBox.SelectedItem = open_orders_binding_list[open_orders_binding_list.Count-1];
+            order_items_binding_list.Clear();
+
+            current_open_order = (TblOrders)OrdersListBox.SelectedItem;
+            OrderNrLabel.Text = "#" + current_open_order.OrderID.ToString();
+            if (show_billingPanel == false)
+            {
+                TablesButton.Show();
+                OrdersButton.Show();
+                TableLabel.Show();
+                OrderNrLabel.Show();
+                OrderNrLabel.BringToFront();
+                show_billingPanel = true;
+            }
+            BillingPanel.BringToFront();
+            show_ordersPanel = false;
+        }
+
+        private void OrdersListBox_Click(object sender, EventArgs e)
+        {
+            if (open_orders_binding_list.Count == 0) return;
+            current_open_order = (TblOrders)OrdersListBox.SelectedItem;
+            OrderNrLabel.Text = "#" + current_open_order.OrderID.ToString();
+            UpdateCurrentOrderItems();
+        }
+
+        private void BillingPanel_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void ProductsTabControl_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void UpdateTableButtons()
+        {
+            foreach (Button table_button in table_buttons)
+            {
+                current_table.TableID = Int32.Parse(table_button.Text);
+                UpdateCurrentTableOpenOrders();
+
+                if (open_orders_binding_list.Count != 0)
+                    table_button.BackColor = Color.DodgerBlue;
+
+            }
+        }
     }
 }
